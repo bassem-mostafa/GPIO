@@ -1,0 +1,24 @@
+[submodule "driver/ATMEGA2560"]
+	path = driver/ATMEGA2560
+	url = https://github.com/bassem-mostafa/GPIO_ATMEGA2560.git
+[submodule "driver/STM32G491MET6"]
+	path = driver/STM32G491MET6
+	url = https://github.com/bassem-mostafa/GPIO_STM32G491MET6.git
+[submodule "driver/STM32L496VGT6P"]
+	path = driver/STM32L496VGT6P
+	url = https://github.com/bassem-mostafa/GPIO_STM32L496VGT6P.git
+[submodule "port/Fares_PCB_Arduino_MEGA2560"]
+	path = port/Fares_PCB_Arduino_MEGA2560
+	url = https://github.com/bassem-mostafa/GPIO_Fares_PCB_Arduino_MEGA2560.git
+[submodule "port/Power_Analyzer"]
+	path = port/Power_Analyzer
+	url = https://github.com/bassem-mostafa/GPIO_Power_Analyzer.git
+[submodule "port/Stub"]
+	path = port/Stub
+	url = https://github.com/bassem-mostafa/GPIO_Stub.git
+[submodule "port/Flow_Meter"]
+	path = port/Flow_Meter
+	url = https://github.com/bassem-mostafa/GPIO_Flow_Meter.git
+[submodule "driver/STM32F401RET6"]
+	path = driver/STM32F401RET6
+	url = https://github.com/bassem-mostafa/GPIO_STM32F401RET6.git
