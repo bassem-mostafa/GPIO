@@ -84,7 +84,7 @@ static GPIO_Context_t GPIO_Context;
 
 static GPIO_Status_t GPIO_Context_Initialize( void )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -94,8 +94,6 @@ static GPIO_Status_t GPIO_Context_Initialize( void )
         {
             GPIO_Context.Instance[ GPIO_x ].GPIOx = GPIO_x;
         }
-
-        Status = GPIO_Status_Success;
     }
     while ( 0 );
 
@@ -104,13 +102,11 @@ static GPIO_Status_t GPIO_Context_Initialize( void )
 
 static GPIO_Status_t GPIO_Context_Cycle( void )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        Status = GPIO_Status_Success;
     }
     while ( 0 );
 
@@ -119,13 +115,11 @@ static GPIO_Status_t GPIO_Context_Cycle( void )
 
 static GPIO_Status_t GPIO_Context_DeInitialize( void )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        Status = GPIO_Status_Success;
     }
     while ( 0 );
 
@@ -134,7 +128,7 @@ static GPIO_Status_t GPIO_Context_DeInitialize( void )
 
 GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -147,8 +141,6 @@ GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance )
         }
 
         *Instance = &GPIO_Context.Instance[ GPIOx ];
-
-        Status = GPIO_Status_Success;
     }
     while ( 0 );
 
@@ -161,7 +153,7 @@ GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance )
 
 GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -198,7 +190,7 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
 
 GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -235,7 +227,7 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
 
 GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -523,7 +515,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260124-1234";
+const char GPIO_VERSION[] = "0.0.0.v20260125-0138";
 
 // #############################################################################
 // #### File Guard #############################################################
