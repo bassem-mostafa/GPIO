@@ -22,3 +22,6 @@
 [submodule "driver/STM32F401RET6"]
 	path = driver/STM32F401RET6
 	url = https://github.com/bassem-mostafa/GPIO_STM32F401RET6.git
+[submodule "driver/PCAL6524HE"]
+	path = driver/PCAL6524HE
+	url = https://github.com/bassem-mostafa/PCAL6524HE.git
