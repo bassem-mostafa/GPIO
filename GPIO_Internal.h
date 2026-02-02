@@ -93,11 +93,13 @@ extern "C"
     typedef struct GPIO_Instance
     {
         GPIO_t GPIOx;
+
         GPIO_Mode_t Mode;
         GPIO_Pull_t Pull;
         GPIO_Function_t Function;
-        GPIO_CallbackOnInterrupt_t OnInterrupt;
-        GPIO_ContextOnInterrupt_t OnInterruptContext;
+
+        GPIO_CallbackOnInterrupt_t * OnInterrupt;
+        GPIO_ContextOnInterrupt_t * OnInterruptContext;
 
         union
         {
@@ -110,12 +112,10 @@ extern "C"
     // #### Public Method(s) #######################################################
     // #############################################################################
 
-    GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance );
-
     GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode );
     GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull );
 
-    GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_Instance_t * Instance, GPIO_CallbackOnInterrupt_t Callback, GPIO_ContextOnInterrupt_t Context );
+    GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_Instance_t * Instance, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context );
 
     // The following APIs MUST be provided by the port
     GPIO_Status_t GPIO_IsValid( GPIO_t GPIOx );

@@ -135,7 +135,7 @@ GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull )
     return Status;
 }
 
-GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_Instance_t * Instance, GPIO_CallbackOnInterrupt_t Callback, GPIO_ContextOnInterrupt_t Context )
+GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_Instance_t * Instance, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context )
 {
     GPIO_Status_t Status = GPIO_Status_Error;
 

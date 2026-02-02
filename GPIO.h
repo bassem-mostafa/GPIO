@@ -144,12 +144,12 @@ extern "C"
     /**
      *  @brief GPIO Callback On Interrupt Context
      */
-    typedef void * GPIO_ContextOnInterrupt_t;
+    typedef void GPIO_ContextOnInterrupt_t;
 
     /**
      *  @brief GPIO Callback On Interrupt
      */
-    typedef GPIO_Status_t ( *GPIO_CallbackOnInterrupt_t )( GPIO_t GPIOx, GPIO_ContextOnInterrupt_t Context );
+    typedef GPIO_Status_t( GPIO_CallbackOnInterrupt_t )( GPIO_t GPIOx, GPIO_ContextOnInterrupt_t * Context );
 
     // TODO Make use of the following configuration structure
     /**
@@ -159,11 +159,11 @@ extern "C"
      */
     typedef struct GPIO_Configuration
     {
-        GPIO_Mode_t Mode;                             ///< Mode
-        GPIO_Function_t Function;                     ///< Function
-        GPIO_Pull_t Pull;                             ///< Pull
-        GPIO_CallbackOnInterrupt_t OnInterrupt;       ///< OnInterrupt
-        GPIO_ContextOnInterrupt_t OnInterruptContext; ///< OnInterrupt Context
+        GPIO_Mode_t Mode;                               ///< Mode
+        GPIO_Function_t Function;                       ///< Function
+        GPIO_Pull_t Pull;                               ///< Pull
+        GPIO_CallbackOnInterrupt_t * OnInterrupt;       ///< OnInterrupt
+        GPIO_ContextOnInterrupt_t * OnInterruptContext; ///< OnInterrupt Context
 
         GPIO_Value_t Value; ///< Default(Initial) Value
     } GPIO_Configuration_t;
@@ -240,7 +240,7 @@ extern "C"
      *
      *  @return GPIO_Status_t
      */
-    GPIO_Status_t GPIO_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t Callback, GPIO_ContextOnInterrupt_t Context );
+    GPIO_Status_t GPIO_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context );
 
     /**
      *  @brief Commit pending configuration of hardware pin
