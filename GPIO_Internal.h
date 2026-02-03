@@ -132,8 +132,6 @@ extern "C"
     GPIO_Status_t GPIO_Instance_Write( GPIO_Instance_t * Instance, GPIO_Value_t Value );
     GPIO_Status_t GPIO_Instance_Read( GPIO_Instance_t * Instance, GPIO_Value_t * Value );
 
-    // TODO Add More APIs
-
     // #############################################################################
     // #### Public Variable(s) #####################################################
     // #############################################################################
