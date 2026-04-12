@@ -88,7 +88,7 @@ extern "C"
     // #### Public Type(s) #########################################################
     // #############################################################################
 
-    typedef struct GPIO_Instance_Context_t GPIO_Instance_Context_t;
+    typedef struct GPIO_InstanceContext_t GPIO_InstanceContext_t;
 
     typedef struct GPIO_Instance
     {
@@ -103,7 +103,7 @@ extern "C"
 
         union
         {
-            GPIO_Instance_Context_t * Context;
+            GPIO_InstanceContext_t * Context;
             GPIO_STM32L496VGT6P_Instance_t * STM32L496VGT6P;
         };
     } GPIO_Instance_t;
