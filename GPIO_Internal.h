@@ -112,6 +112,8 @@ extern "C"
     // #### Public Method(s) #######################################################
     // #############################################################################
 
+    GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance );
+
     GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode );
     GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull );
 
@@ -128,6 +130,8 @@ extern "C"
     GPIO_Status_t GPIO_Instance_SetMode( GPIO_Instance_t * Instance, GPIO_Mode_t Mode );
     GPIO_Status_t GPIO_Instance_SetFunction( GPIO_Instance_t * Instance, GPIO_Function_t Function );
     GPIO_Status_t GPIO_Instance_SetPull( GPIO_Instance_t * Instance, GPIO_Pull_t Pull );
+
+    GPIO_Status_t GPIO_Instance_Commit( GPIO_Instance_t * Instance );
 
     GPIO_Status_t GPIO_Instance_Write( GPIO_Instance_t * Instance, GPIO_Value_t Value );
     GPIO_Status_t GPIO_Instance_Read( GPIO_Instance_t * Instance, GPIO_Value_t * Value );
