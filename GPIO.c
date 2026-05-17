@@ -61,7 +61,6 @@
 
 typedef struct GPIO_Context
 {
-    GPIO_Instance_t Instance[ GPIO_Count ];
 } GPIO_Context_t;
 
 // #############################################################################
@@ -89,11 +88,6 @@ static GPIO_Status_t GPIO_Context_Initialize( void )
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
-        {
-            GPIO_Context.Instance[ GPIO_x ].GPIOx = GPIO_x;
-        }
     }
     while ( 0 );
 
@@ -120,27 +114,6 @@ static GPIO_Status_t GPIO_Context_DeInitialize( void )
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
-    }
-    while ( 0 );
-
-    return Status;
-}
-
-GPIO_Status_t GPIO_GetInstance( GPIO_t GPIOx, GPIO_Instance_t ** Instance )
-{
-    GPIO_Status_t Status = GPIO_Status_Success;
-
-    do
-    {
-        GPIO_Trace( "%s( GPIOx=%d, Instance=%p )", __FUNCTION__, GPIOx, Instance );
-
-        if ( Instance == NULL )
-        {
-            Status = GPIO_Status_ArgumentInvalid;
-            break;
-        }
-
-        *Instance = &GPIO_Context.Instance[ GPIOx ];
     }
     while ( 0 );
 
@@ -177,7 +150,7 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_Initialize( &GPIO_Context.Instance[ GPIO_x ] ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_Initialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -214,7 +187,7 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_Cycle( &GPIO_Context.Instance[ GPIO_x ] ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_Cycle( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -246,7 +219,7 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_DeInitialize( &GPIO_Context.Instance[ GPIO_x ] ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_DeInitialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -288,7 +261,7 @@ GPIO_Status_t GPIO_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetMode( &GPIO_Context.Instance[ GPIO_x ], Mode ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_SetMode( GPIO_x, Mode ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -325,7 +298,7 @@ GPIO_Status_t GPIO_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetFunction( &GPIO_Context.Instance[ GPIO_x ], Function ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_SetFunction( GPIO_x, Function ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -362,7 +335,7 @@ GPIO_Status_t GPIO_SetPull( GPIO_t GPIOx, GPIO_Pull_t Pull )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetPull( &GPIO_Context.Instance[ GPIO_x ], Pull ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_SetPull( GPIO_x, Pull ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -394,7 +367,7 @@ GPIO_Status_t GPIO_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrup
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetCallbackOnInterrupt( &GPIO_Context.Instance[ GPIO_x ], Callback, Context ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_SetCallbackOnInterrupt( GPIO_x, Callback, Context ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -426,7 +399,7 @@ GPIO_Status_t GPIO_Commit( GPIO_t GPIOx )
             }
 
             GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Commit( &GPIO_Context.Instance[ GPIO_x ] ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_Commit( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -459,7 +432,7 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
             }
 
             GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Write( &GPIO_Context.Instance[ GPIO_x ], Value ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_Write( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -503,7 +476,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
             }
 
             GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Read( &GPIO_Context.Instance[ GPIO_x ], Value ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Instance_Read( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -518,7 +491,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260416-2335";
+const char GPIO_VERSION[] = "0.0.0.v20260518-0029";
 
 // #############################################################################
 // #### File Guard #############################################################

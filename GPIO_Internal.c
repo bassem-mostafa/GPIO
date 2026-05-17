@@ -77,7 +77,7 @@
 
 GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -96,7 +96,6 @@ GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode )
             case GPIO_Mode_EventFalling:
             case GPIO_Mode_AlternateFunction:
             case GPIO_Mode_AlternateFunctionOpenDrain:
-                Status = GPIO_Status_Success;
                 break;
 
             default:
@@ -111,7 +110,7 @@ GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode )
 
 GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
@@ -122,7 +121,6 @@ GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull )
             case GPIO_Pull_None:
             case GPIO_Pull_Up:
             case GPIO_Pull_Down:
-                Status = GPIO_Status_Success;
                 break;
 
             default:
@@ -135,17 +133,15 @@ GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull )
     return Status;
 }
 
-GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_Instance_t * Instance, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context )
+GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
 
     do
     {
-        GPIO_Trace( "%s( Instance=%p, Callback=%p, Context=%p )", __FUNCTION__, Instance, Callback, Context );
+        GPIO_Trace( "%s( GPIOx=%d, Callback=%p, Context=%p )", __FUNCTION__, GPIOx, Callback, Context );
 
-        Instance->OnInterrupt = Callback;
-        Instance->OnInterruptContext = Context;
-        Status = GPIO_Status_Success;
+        // TODO Implement callback and context setting
     }
     while ( 0 );
 
