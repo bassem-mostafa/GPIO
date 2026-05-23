@@ -48,7 +48,7 @@ extern "C"
     // #### Include(s) #############################################################
     // #############################################################################
 
-    #include "GPIO_Port.h"
+    #include "GPIO.h"
     #include "driver/STM32L496VGT6P/GPIO_STM32L496VGT6P.h"
 
     // #############################################################################
@@ -91,6 +91,7 @@ extern "C"
     typedef enum GPIO_Type
     {
         GPIO_Type_Unknown = 0,
+        GPIO_Type_Null,
         GPIO_Type_STM32L496VGT6P,
     } GPIO_Type_t;
 
@@ -102,33 +103,27 @@ extern "C"
         {
             GPIO_STM32L496VGT6P_t STM32L496VGT6Px;
         };
+
+        GPIO_Configuration_t Configuration;
+        GPIO_OnInterrupt_t OnInterrupt;
+        GPIO_OnEvent_t OnEvent;
     } GPIO_Instance_t;
 
     // #############################################################################
     // #### Public Method(s) #######################################################
     // #############################################################################
 
-    GPIO_Status_t GPIO_Mode_IsValid( GPIO_Mode_t Mode );
-    GPIO_Status_t GPIO_Pull_IsValid( GPIO_Pull_t Pull );
-
-    GPIO_Status_t GPIO_Instance_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context );
-
     // The following APIs MUST be provided by the port
-    GPIO_Status_t GPIO_IsValid( GPIO_t GPIOx );
-    GPIO_Status_t GPIO_Function_IsValid( GPIO_Function_t Function );
+    GPIO_Status_t GPIO_Port_Initialize( GPIO_t GPIOx );
+    GPIO_Status_t GPIO_Port_Cycle( GPIO_t GPIOx );
+    GPIO_Status_t GPIO_Port_DeInitialize( GPIO_t GPIOx );
 
-    GPIO_Status_t GPIO_Instance_Initialize( GPIO_t GPIOx );
-    GPIO_Status_t GPIO_Instance_Cycle( GPIO_t GPIOx );
-    GPIO_Status_t GPIO_Instance_DeInitialize( GPIO_t GPIOx );
+    GPIO_Status_t GPIO_Port_Configure( GPIO_t GPIOx, GPIO_Configuration_t * Configuration );
+    GPIO_Status_t GPIO_Port_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t * OnInterrupt );
+    GPIO_Status_t GPIO_Port_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t * OnEvent );
 
-    GPIO_Status_t GPIO_Instance_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode );
-    GPIO_Status_t GPIO_Instance_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function );
-    GPIO_Status_t GPIO_Instance_SetPull( GPIO_t GPIOx, GPIO_Pull_t Pull );
-
-    GPIO_Status_t GPIO_Instance_Commit( GPIO_t GPIOx );
-
-    GPIO_Status_t GPIO_Instance_Write( GPIO_t GPIOx, GPIO_Value_t Value );
-    GPIO_Status_t GPIO_Instance_Read( GPIO_t GPIOx, GPIO_Value_t * Value );
+    GPIO_Status_t GPIO_Port_Write( GPIO_t GPIOx, GPIO_Value_t Value );
+    GPIO_Status_t GPIO_Port_Read( GPIO_t GPIOx, GPIO_Value_t * Value );
 
     // #############################################################################
     // #### Public Variable(s) #####################################################

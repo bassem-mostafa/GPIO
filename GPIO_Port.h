@@ -45,8 +45,6 @@
 
     #if defined( GPIO_FLOW_METER )
         #include "port/Flow_Meter/GPIO_Flow_Meter_Port.h"
-    #elif defined( GPIO_POWER_ANALYZER )
-        #include "port/Power_Analyzer/GPIO_Power_Analyzer_Port.h"
     #else
         #ifndef GPIO_STUB
             #define GPIO_STUB

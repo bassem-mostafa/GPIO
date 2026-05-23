@@ -88,6 +88,8 @@ static GPIO_Status_t GPIO_Context_Initialize( void )
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
+
+        UTIL_UNUSED( GPIO_Context );
     }
     while ( 0 );
 
@@ -101,6 +103,8 @@ static GPIO_Status_t GPIO_Context_Cycle( void )
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
+
+        UTIL_UNUSED( GPIO_Context );
     }
     while ( 0 );
 
@@ -114,6 +118,8 @@ static GPIO_Status_t GPIO_Context_DeInitialize( void )
     do
     {
         GPIO_Trace( "%s( void )", __FUNCTION__ );
+
+        UTIL_UNUSED( GPIO_Context );
     }
     while ( 0 );
 
@@ -133,11 +139,6 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
 
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
         if ( ( Status = GPIO_Context_Initialize( ) ) != GPIO_Status_Success )
         {
             break;
@@ -150,7 +151,7 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_Initialize( GPIO_x ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_Initialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -170,11 +171,6 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
 
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
         if ( ( Status = GPIO_Context_Cycle( ) ) != GPIO_Status_Success )
         {
             break;
@@ -187,7 +183,7 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_Cycle( GPIO_x ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_Cycle( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -207,11 +203,6 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
 
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
         for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
         {
             if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
@@ -219,7 +210,7 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_DeInitialize( GPIO_x ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_DeInitialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -235,24 +226,14 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
     return Status;
 }
 
-GPIO_Status_t GPIO_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode )
+GPIO_Status_t GPIO_Configure( GPIO_t GPIOx, GPIO_Configuration_t Configuration )
 {
     GPIO_Status_t Status = GPIO_Status_Success;
     GPIO_Status_t GPIO_Status = GPIO_Status_Success;
 
     do
     {
-        GPIO_Trace( "%s( GPIO=%d, Mode=%d )", __FUNCTION__, GPIOx, Mode );
-
-        if ( ( Status = GPIO_Mode_IsValid( Mode ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
+        GPIO_Trace( "%s( GPIO=%d, Configuration={Mode=%d, Function=%d, Pull=%d} )", __FUNCTION__, GPIOx, Configuration.Mode, Configuration.Function, Configuration.Pull );
 
         for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
         {
@@ -261,7 +242,7 @@ GPIO_Status_t GPIO_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetMode( GPIO_x, Mode ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_Configure( GPIO_x, &Configuration ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -272,24 +253,14 @@ GPIO_Status_t GPIO_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode )
     return Status;
 }
 
-GPIO_Status_t GPIO_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function )
+GPIO_Status_t GPIO_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t OnInterrupt )
 {
     GPIO_Status_t Status = GPIO_Status_Success;
     GPIO_Status_t GPIO_Status = GPIO_Status_Success;
 
     do
     {
-        GPIO_Trace( "%s( GPIO=%d, Function=%d )", __FUNCTION__, GPIOx, Function );
-
-        if ( ( Status = GPIO_Function_IsValid( Function ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
+        GPIO_Trace( "%s( GPIO=%d, OnInterrupt={Callback=%p, Context=%p} )", __FUNCTION__, GPIOx, OnInterrupt.Callback, OnInterrupt.Context );
 
         for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
         {
@@ -298,7 +269,7 @@ GPIO_Status_t GPIO_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetFunction( GPIO_x, Function ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_SetOnInterrupt( GPIO_x, &OnInterrupt ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -309,24 +280,14 @@ GPIO_Status_t GPIO_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function )
     return Status;
 }
 
-GPIO_Status_t GPIO_SetPull( GPIO_t GPIOx, GPIO_Pull_t Pull )
+GPIO_Status_t GPIO_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t OnEvent )
 {
     GPIO_Status_t Status = GPIO_Status_Success;
     GPIO_Status_t GPIO_Status = GPIO_Status_Success;
 
     do
     {
-        GPIO_Trace( "%s( GPIO=%d, Pull=%d )", __FUNCTION__, GPIOx, Pull );
-
-        if ( ( Status = GPIO_Pull_IsValid( Pull ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
+        GPIO_Trace( "%s( GPIO=%d, OnEvent={Callback=%p, Context=%p} )", __FUNCTION__, GPIOx, OnEvent.Callback, OnEvent.Context );
 
         for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
         {
@@ -335,71 +296,7 @@ GPIO_Status_t GPIO_SetPull( GPIO_t GPIOx, GPIO_Pull_t Pull )
                 continue;
             }
 
-            if ( ( GPIO_Status = GPIO_Instance_SetPull( GPIO_x, Pull ) ) != GPIO_Status_Success )
-            {
-                Status = GPIO_Status;
-            }
-        }
-    }
-    while ( 0 );
-
-    return Status;
-}
-
-GPIO_Status_t GPIO_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context )
-{
-    GPIO_Status_t Status = GPIO_Status_Success;
-    GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-
-    do
-    {
-        GPIO_Trace( "%s( GPIO=%d, Callback=%p, Context=%p )", __FUNCTION__, GPIOx, Callback, Context );
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
-        {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
-            if ( ( GPIO_Status = GPIO_Instance_SetCallbackOnInterrupt( GPIO_x, Callback, Context ) ) != GPIO_Status_Success )
-            {
-                Status = GPIO_Status;
-            }
-        }
-    }
-    while ( 0 );
-
-    return Status;
-}
-
-GPIO_Status_t GPIO_Commit( GPIO_t GPIOx )
-{
-    GPIO_Status_t Status = GPIO_Status_Error;
-
-    do
-    {
-        GPIO_Trace( "%s( GPIO=%d )", __FUNCTION__, GPIOx );
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
-        {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
-            GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Commit( GPIO_x ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_SetOnEvent( GPIO_x, &OnEvent ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -412,17 +309,10 @@ GPIO_Status_t GPIO_Commit( GPIO_t GPIOx )
 
 GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
     do
     {
         GPIO_Trace( "%s( GPIO=%d, Value=%d )", __FUNCTION__, GPIOx, Value );
-
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
-        // TODO Is it required to add GPIO Value Validation `GPIO_Value_IsValid(...)`
 
         for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
         {
@@ -432,7 +322,7 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
             }
 
             GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Write( GPIO_x, Value ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_Write( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -445,7 +335,7 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
 
 GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 {
-    GPIO_Status_t Status = GPIO_Status_Error;
+    GPIO_Status_t Status = GPIO_Status_Success;
     do
     {
         GPIO_Trace( "%s( GPIO=%d, Value=%p )", __FUNCTION__, GPIOx, Value );
@@ -456,14 +346,9 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
             break;
         }
 
-        if ( ( Status = GPIO_IsValid( GPIOx ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
-
         if ( GPIOx == GPIO_All )
         {
-            // TODO Is it required to define a criteria to read all pins ?
+            // TODO Is it required to define a criteria to read all pins?
             Status = GPIO_Status_NotSupported;
             break;
         }
@@ -476,7 +361,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
             }
 
             GPIO_Status_t GPIO_Status = GPIO_Status_Success;
-            if ( ( GPIO_Status = GPIO_Instance_Read( GPIO_x, Value ) ) != GPIO_Status_Success )
+            if ( ( GPIO_Status = GPIO_Port_Read( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
             }
@@ -491,7 +376,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260518-0029";
+const char GPIO_VERSION[] = "0.0.0.v20260523-1800";
 
 // #############################################################################
 // #### File Guard #############################################################

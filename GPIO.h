@@ -105,7 +105,8 @@ extern "C"
      */
     typedef enum GPIO_Mode
     {
-        GPIO_Mode_Input = 0,                  ///< Input (High Impedance)
+        GPIO_Mode_Default = 0,                ///< Default
+        GPIO_Mode_Input,                      ///< Input (High Impedance)
         GPIO_Mode_Output,                     ///< Output (Push-Pull)
         GPIO_Mode_OutputOpenDrain,            ///< Output (Open-Drain)
         GPIO_Mode_Interrupt,                  ///< Interrupt (On Change)
@@ -142,16 +143,37 @@ extern "C"
     } GPIO_Value_t;
 
     /**
-     *  @brief GPIO Callback On Interrupt Context
+     *  @brief GPIO Callback Context
      */
-    typedef void GPIO_ContextOnInterrupt_t;
+    typedef void GPIO_CallbackContext_t;
 
     /**
-     *  @brief GPIO Callback On Interrupt
+     *  @brief GPIO Callback
      */
-    typedef GPIO_Status_t( GPIO_CallbackOnInterrupt_t )( GPIO_t GPIOx, GPIO_ContextOnInterrupt_t * Context );
+    typedef GPIO_Status_t( GPIO_Callback_t )( GPIO_t GPIOx, GPIO_CallbackContext_t * Context );
 
-    // TODO Make use of the following configuration structure
+    /**
+     *  @brief GPIO On Interrupt Configuration
+     *
+     *  @struct GPIO_OnInterrupt_t
+     */
+    typedef struct GPIO_OnInterrupt
+    {
+        GPIO_Callback_t * Callback;
+        GPIO_CallbackContext_t * Context;
+    } GPIO_OnInterrupt_t;
+
+    /**
+     *  @brief GPIO On Event Configuration
+     *
+     *  @struct GPIO_OnEvent_t
+     */
+    typedef struct GPIO_OnEvent
+    {
+        GPIO_Callback_t * Callback;
+        GPIO_CallbackContext_t * Context;
+    } GPIO_OnEvent_t;
+
     /**
      *  @brief GPIO Configuration
      *
@@ -159,13 +181,9 @@ extern "C"
      */
     typedef struct GPIO_Configuration
     {
-        GPIO_Mode_t Mode;                               ///< Mode
-        GPIO_Function_t Function;                       ///< Function
-        GPIO_Pull_t Pull;                               ///< Pull
-        GPIO_CallbackOnInterrupt_t * OnInterrupt;       ///< OnInterrupt
-        GPIO_ContextOnInterrupt_t * OnInterruptContext; ///< OnInterrupt Context
-
-        GPIO_Value_t Value; ///< Default(Initial) Value
+        GPIO_Mode_t Mode;         ///< Mode
+        GPIO_Function_t Function; ///< Function
+        GPIO_Pull_t Pull;         ///< Pull
     } GPIO_Configuration_t;
 
     // #############################################################################
@@ -202,54 +220,34 @@ extern "C"
     GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx );
 
     /**
-     *  @brief Set mode of hardware pin
+     *  @brief Configure hardware pin
      *
-     *  @param[in] GPIOx Pin
-     *  @param[in] Mode  Mode
+     *  @param[in] GPIOx         Pin
+     *  @param[in] Configuration Configuration
      *
      *  @return GPIO_Status_t
      */
-    GPIO_Status_t GPIO_SetMode( GPIO_t GPIOx, GPIO_Mode_t Mode );
+    GPIO_Status_t GPIO_Configure( GPIO_t GPIOx, GPIO_Configuration_t Configuration );
 
     /**
-     *  @brief Set function of hardware pin
+     *  @brief Set on-interrupt of hardware pin
      *
-     *  @param[in] GPIOx    Pin
-     *  @param[in] Function Function
+     *  @param[in] GPIOx       Pin
+     *  @param[in] OnInterrupt On-interrupt configuration
      *
      *  @return GPIO_Status_t
      */
-    GPIO_Status_t GPIO_SetFunction( GPIO_t GPIOx, GPIO_Function_t Function );
+    GPIO_Status_t GPIO_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t OnInterrupt );
 
     /**
-     *  @brief Set pull of hardware pin
+     *  @brief Set on-event of hardware pin
      *
-     *  @param[in] GPIOx Pin
-     *  @param[in] Pull  Pull
-     *
-     *  @return GPIO_Status_t
-     */
-    GPIO_Status_t GPIO_SetPull( GPIO_t GPIOx, GPIO_Pull_t Pull );
-
-    /**
-     *  @brief Set callback for on-interrupt of hardware pin
-     *
-     *  @param[in] GPIOx    Pin
-     *  @param[in] Callback On-interrupt callback
-     *  @param[in] Context  On-interrupt context
+     *  @param[in] GPIOx   Pin
+     *  @param[in] OnEvent On-event configuration
      *
      *  @return GPIO_Status_t
      */
-    GPIO_Status_t GPIO_SetCallbackOnInterrupt( GPIO_t GPIOx, GPIO_CallbackOnInterrupt_t * Callback, GPIO_ContextOnInterrupt_t * Context );
-
-    /**
-     *  @brief Commit pending configuration of hardware pin
-     *
-     *  @param[in] GPIOx Pin
-     *
-     *  @return GPIO_Status_t
-     */
-    GPIO_Status_t GPIO_Commit( GPIO_t GPIOx );
+    GPIO_Status_t GPIO_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t OnEvent );
 
     /**
      *  @brief Write value to hardware pin
