@@ -310,6 +310,8 @@ GPIO_Status_t GPIO_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t OnEvent )
 GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
 {
     GPIO_Status_t Status = GPIO_Status_Success;
+    GPIO_Status_t GPIO_Status = GPIO_Status_Success;
+
     do
     {
         GPIO_Trace( "%s( GPIO=%d, Value=%d )", __FUNCTION__, GPIOx, Value );
@@ -321,7 +323,6 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
                 continue;
             }
 
-            GPIO_Status_t GPIO_Status = GPIO_Status_Success;
             if ( ( GPIO_Status = GPIO_Port_Write( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -336,6 +337,8 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
 GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 {
     GPIO_Status_t Status = GPIO_Status_Success;
+    GPIO_Status_t GPIO_Status = GPIO_Status_Success;
+
     do
     {
         GPIO_Trace( "%s( GPIO=%d, Value=%p )", __FUNCTION__, GPIOx, Value );
@@ -348,7 +351,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 
         if ( GPIOx == GPIO_All )
         {
-            // TODO Is it required to define a criteria to read all pins?
+            // FIXME Is it required to define a criteria to read all pins?
             Status = GPIO_Status_NotSupported;
             break;
         }
@@ -360,7 +363,6 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
                 continue;
             }
 
-            GPIO_Status_t GPIO_Status = GPIO_Status_Success;
             if ( ( GPIO_Status = GPIO_Port_Read( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -376,7 +378,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260524-1454";
+const char GPIO_VERSION[] = "0.0.0.v20260524-1644";
 
 // #############################################################################
 // #### File Guard #############################################################
