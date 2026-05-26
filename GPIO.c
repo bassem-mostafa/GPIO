@@ -144,13 +144,10 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
             break;
         }
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_Initialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -176,13 +173,10 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
             break;
         }
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_Cycle( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -203,13 +197,10 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_DeInitialize( GPIO_x ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -235,13 +226,10 @@ GPIO_Status_t GPIO_Configure( GPIO_t GPIOx, GPIO_Configuration_t Configuration )
     {
         GPIO_Trace( "%s( GPIO=%d, Configuration={Mode=%d, Function=%d, Pull=%d} )", __FUNCTION__, GPIOx, Configuration.Mode, Configuration.Function, Configuration.Pull );
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_Configure( GPIO_x, &Configuration ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -262,13 +250,10 @@ GPIO_Status_t GPIO_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t OnInterrupt 
     {
         GPIO_Trace( "%s( GPIO=%d, OnInterrupt={Callback=%p, Context=%p} )", __FUNCTION__, GPIOx, OnInterrupt.Callback, OnInterrupt.Context );
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_SetOnInterrupt( GPIO_x, &OnInterrupt ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -289,13 +274,10 @@ GPIO_Status_t GPIO_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t OnEvent )
     {
         GPIO_Trace( "%s( GPIO=%d, OnEvent={Callback=%p, Context=%p} )", __FUNCTION__, GPIOx, OnEvent.Callback, OnEvent.Context );
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_SetOnEvent( GPIO_x, &OnEvent ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -316,13 +298,10 @@ GPIO_Status_t GPIO_Write( GPIO_t GPIOx, GPIO_Value_t Value )
     {
         GPIO_Trace( "%s( GPIO=%d, Value=%d )", __FUNCTION__, GPIOx, Value );
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_Write( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -356,13 +335,10 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
             break;
         }
 
-        for ( GPIO_t GPIO_x = GPIO_Null; GPIO_x < GPIO_Count; ++GPIO_x )
+        GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
+        GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
+        for ( GPIO_t GPIO_x = GPIO_start; GPIO_x < GPIO_end; ++GPIO_x )
         {
-            if ( GPIOx != GPIO_All && GPIOx != GPIO_x )
-            {
-                continue;
-            }
-
             if ( ( GPIO_Status = GPIO_Port_Read( GPIO_x, Value ) ) != GPIO_Status_Success )
             {
                 Status = GPIO_Status;
@@ -378,7 +354,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260524-1644";
+const char GPIO_VERSION[] = "0.0.0.v20260526-1804";
 
 // #############################################################################
 // #### File Guard #############################################################
