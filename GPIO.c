@@ -59,72 +59,17 @@
 // #### Private Type(s) ########################################################
 // #############################################################################
 
-typedef struct GPIO_Context
-{
-} GPIO_Context_t;
-
 // #############################################################################
 // #### Private Method(s) Prototype ############################################
 // #############################################################################
-
-static GPIO_Status_t GPIO_Context_Initialize( void );
-static GPIO_Status_t GPIO_Context_Cycle( void );
-static GPIO_Status_t GPIO_Context_DeInitialize( void );
 
 // #############################################################################
 // #### Private Variable(s) ####################################################
 // #############################################################################
 
-static GPIO_Context_t GPIO_Context;
-
 // #############################################################################
 // #### Private Method(s) ######################################################
 // #############################################################################
-
-static GPIO_Status_t GPIO_Context_Initialize( void )
-{
-    GPIO_Status_t Status = GPIO_Status_Success;
-
-    do
-    {
-        GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        UTIL_UNUSED( GPIO_Context );
-    }
-    while ( 0 );
-
-    return Status;
-}
-
-static GPIO_Status_t GPIO_Context_Cycle( void )
-{
-    GPIO_Status_t Status = GPIO_Status_Success;
-
-    do
-    {
-        GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        UTIL_UNUSED( GPIO_Context );
-    }
-    while ( 0 );
-
-    return Status;
-}
-
-static GPIO_Status_t GPIO_Context_DeInitialize( void )
-{
-    GPIO_Status_t Status = GPIO_Status_Success;
-
-    do
-    {
-        GPIO_Trace( "%s( void )", __FUNCTION__ );
-
-        UTIL_UNUSED( GPIO_Context );
-    }
-    while ( 0 );
-
-    return Status;
-}
 
 // #############################################################################
 // #### Public Method(s) #######################################################
@@ -138,11 +83,6 @@ GPIO_Status_t GPIO_Initialize( GPIO_t GPIOx )
     do
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
-
-        if ( ( Status = GPIO_Context_Initialize( ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
 
         GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
         GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
@@ -167,11 +107,6 @@ GPIO_Status_t GPIO_Cycle( GPIO_t GPIOx )
     do
     {
         GPIO_Trace( "%s( GPIOx=%d )", __FUNCTION__, GPIOx );
-
-        if ( ( Status = GPIO_Context_Cycle( ) ) != GPIO_Status_Success )
-        {
-            break;
-        }
 
         GPIO_t GPIO_start = ( GPIOx == GPIO_All ? GPIO_Null : GPIOx );
         GPIO_t GPIO_end = ( GPIOx == GPIO_All ? GPIO_Count : GPIOx + 1 );
@@ -205,11 +140,6 @@ GPIO_Status_t GPIO_DeInitialize( GPIO_t GPIOx )
             {
                 Status = GPIO_Status;
             }
-        }
-
-        if ( ( Status = GPIO_Context_DeInitialize( ) ) != GPIO_Status_Success )
-        {
-            break;
         }
     }
     while ( 0 );
@@ -354,7 +284,7 @@ GPIO_Status_t GPIO_Read( GPIO_t GPIOx, GPIO_Value_t * Value )
 // #### Public Variable(s) #####################################################
 // #############################################################################
 
-const char GPIO_VERSION[] = "0.0.0.v20260526-1804";
+const char GPIO_VERSION[] = "0.0.0.v20260818-0345";
 
 // #############################################################################
 // #### File Guard #############################################################
