@@ -164,17 +164,6 @@ extern "C"
     } GPIO_OnInterrupt_t;
 
     /**
-     *  @brief GPIO On Event Configuration
-     *
-     *  @struct GPIO_OnEvent_t
-     */
-    typedef struct GPIO_OnEvent
-    {
-        GPIO_Callback_t * Callback;
-        GPIO_CallbackContext_t * Context;
-    } GPIO_OnEvent_t;
-
-    /**
      *  @brief GPIO Configuration
      *
      *  @struct GPIO_Configuration_t
@@ -238,16 +227,6 @@ extern "C"
      *  @return GPIO_Status_t
      */
     GPIO_Status_t GPIO_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t OnInterrupt );
-
-    /**
-     *  @brief Set on-event of hardware pin
-     *
-     *  @param[in] GPIOx   Pin
-     *  @param[in] OnEvent On-event configuration
-     *
-     *  @return GPIO_Status_t
-     */
-    GPIO_Status_t GPIO_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t OnEvent );
 
     /**
      *  @brief Write value to hardware pin

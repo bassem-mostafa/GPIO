@@ -106,7 +106,6 @@ extern "C"
 
         GPIO_Configuration_t Configuration;
         GPIO_OnInterrupt_t OnInterrupt;
-        GPIO_OnEvent_t OnEvent;
     } GPIO_Instance_t;
 
     // #############################################################################
@@ -120,7 +119,6 @@ extern "C"
 
     GPIO_Status_t GPIO_Port_Configure( GPIO_t GPIOx, GPIO_Configuration_t * Configuration );
     GPIO_Status_t GPIO_Port_SetOnInterrupt( GPIO_t GPIOx, GPIO_OnInterrupt_t * OnInterrupt );
-    GPIO_Status_t GPIO_Port_SetOnEvent( GPIO_t GPIOx, GPIO_OnEvent_t * OnEvent );
 
     GPIO_Status_t GPIO_Port_Write( GPIO_t GPIOx, GPIO_Value_t Value );
     GPIO_Status_t GPIO_Port_Read( GPIO_t GPIOx, GPIO_Value_t * Value );
