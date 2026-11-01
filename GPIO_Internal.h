@@ -49,6 +49,7 @@ extern "C"
     // #############################################################################
 
     #include "GPIO.h"
+    #include "driver/STM32L476ZGT6/GPIO_STM32L476ZGT6.h"
     #include "driver/STM32L496VGT6P/GPIO_STM32L496VGT6P.h"
 
     // #############################################################################
@@ -93,6 +94,7 @@ extern "C"
         GPIO_Type_Unknown = 0,
         GPIO_Type_Null,
         GPIO_Type_STM32L496VGT6P,
+        GPIO_Type_STM32L476ZGT6,
     } GPIO_Type_t;
 
     typedef struct GPIO_Instance
@@ -102,6 +104,7 @@ extern "C"
         union
         {
             GPIO_STM32L496VGT6P_t STM32L496VGT6Px;
+            GPIO_STM32L476ZGT6_t STM32L476ZGT6x;
         };
 
         GPIO_Configuration_t Configuration;
